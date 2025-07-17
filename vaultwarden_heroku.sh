@@ -38,6 +38,7 @@ function heroku_bootstrap {
 
     echo "We must create a Heroku application to deploy to first."
     APP_NAME=$(heroku create "${CREATE_APP_NAME}" ${HEROKU_CREATE_OPTIONS} --json | jq --raw-output '.name')
+    heroku stack:set container -a "$APP_NAME"
     if [ "$USE_PSQL" -eq "1" ]
     then
         echo "We will use Heroku Postgres, which is free and sufficient for a small instance"
